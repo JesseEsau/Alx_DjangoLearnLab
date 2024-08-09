@@ -1,7 +1,8 @@
 from bookshelf.models import Book
 
-books = Book.objects.all()
+# Retrieve book
+book = Book.objects.get(id=1)
+print(book)
 
-books
-
-Output: It prints out details about each book.
+# Output
+<Book: 1984>
