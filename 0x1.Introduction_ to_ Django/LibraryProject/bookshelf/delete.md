@@ -8,6 +8,7 @@ book1.delete()
 
 # Retrieve books to check if Book was actually deleted
 books = Book.objects.all()
+print(books)
 
 # Output
 []
