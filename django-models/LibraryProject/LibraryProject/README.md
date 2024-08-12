@@ -1,0 +1,1 @@
+A basic Django project aimed at learning a Django project's default structure.
