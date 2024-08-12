@@ -1,4 +1,4 @@
-from .models import *
+from relationship_app.models import Book, Library
 
 books_by_jesse = Book.objects.filter(author='Jesse Esau').values()
 books_by_jesse
