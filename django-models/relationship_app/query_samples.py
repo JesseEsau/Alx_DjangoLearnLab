@@ -1,4 +1,4 @@
-from relationship_app.models import Book, Library, Author
+from relationship_app.models import Book, Librarian, Author, Library
 
 # variables
 library_name = "ALX Modern Library"
@@ -13,4 +13,4 @@ books = Library.objects.get(name=library_name)
 books.all()
 
 # Retrieve librarian of a library
-librarian = Library.objects.get(library=library_name)
+librarian = Librarian.objects.get(library=library_name)
