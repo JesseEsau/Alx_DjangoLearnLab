@@ -5,7 +5,8 @@ library_name = "ALX Modern Library"
 author_name = "Jesse Esau"
 
 # get all books by a specific author
-books_by_jesse = Author.objects.filter(author=author_name)
+author = Author.objects.get(name=author_name)
+books_by_jesse = Book.objects.filter(name=author)
 
 # Retrieve all books from a given library
 books = Library.objects.get(name=library_name)
