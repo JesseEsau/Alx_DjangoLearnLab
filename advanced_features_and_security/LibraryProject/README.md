@@ -1,1 +1,1 @@
-A project on the basics of Django. 
+This project implements permissions in Django.
