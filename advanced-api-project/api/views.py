@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 
 from .models import Book
 from .forms import BookForm
+from .seriealizers import BookSerializer
 
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
@@ -12,17 +13,15 @@ from rest_framework.authentication import TokenAuthentication
 class BookListView(generics.ListAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
-    model = Book
-    template_name = "api/book_list.html"
-    context_object_name = 'books'
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
 
 
-class BookDetailView(DetailView):
+class BookDetailView(generics.RetrieveAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
-    model = Book
-    template_name = "api/book_detail.html"
-    context_object_name = "book"
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
 
 
 class BookCreateView(CreateView):
