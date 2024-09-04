@@ -24,28 +24,23 @@ class BookDetailView(generics.RetrieveAPIView):
     serializer_class = BookSerializer
 
 
-class BookCreateView(CreateView):
+class BookCreateView(generics.CreateAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
-    model = Book
-    form_class = BookForm
-    template_name = "api/book_form.html"
-    success_url = reverse_lazy('book_list')
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
 
 
-class BookUpdateView(UpdateView):
+class BookUpdateView(generics.UpdateAPIView):
     permission_classess = [IsAuthenticated]
 
-    model = Book
-    form_class = BookForm
-    template_name = "api/book_form.html"
-    success_url = reverse_lazy('book_list')
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
 
 
-class BookDeleteView(DeleteView):
+class BookDeleteView(generics.DestroyAPIView):
     permission_classes = [IsAuthenticated]
 
-    model = Book
-    template_name = 'api/book_confirm_delete.html'
-    success_url = reverse_lazy('book_list')
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
