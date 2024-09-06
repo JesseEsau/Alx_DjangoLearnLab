@@ -1,10 +1,7 @@
 from rest_framework import generics
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy
 
 from .models import Book
-from .forms import BookForm
-from .seriealizers import BookSerializer
+from .serializers import BookSerializer
 
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
