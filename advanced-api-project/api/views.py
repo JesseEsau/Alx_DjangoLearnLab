@@ -8,6 +8,8 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticate
 from rest_framework.authentication import TokenAuthentication
 from rest_framework import filters
 
+from django_filters import rest_framework
+
 
 class BookListView(generics.ListAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
