@@ -34,8 +34,9 @@ class BookTestCases(APITestCase):
             self.url, self.book)
         self.assertEqual(response.status_code, 201)
         self.assertEqual(Book.objects.count(), 1)
-        self.assertEqual(Book.objects.get(
-            id=self.author.id).title, self.book['title'])  # check if book in database is the current book
+
+        response.data = response.json()  # Parse json response data
+        self.assertEqual(response.data['title'], 'Second Book')
 
     def test_update_book(self):
         self.author = Author.objects.create(name="Updated Author")
