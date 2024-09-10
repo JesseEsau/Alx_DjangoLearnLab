@@ -45,14 +45,14 @@ def ProfileView(request):
 
 class NewPost(CreateView):
     model = Post
-    template_name = "blog/new_post.html"
+    template_name = "blog/create_post.html"
     fields = '__all__'
     success_url = "/posts"
 
 
 class Posts(ListView):
     model = Post
-    template_name = "blog/posts.html"
+    template_name = "blog/post_list.html"
 
 
 class PostDetail(DetailView):
@@ -62,7 +62,7 @@ class PostDetail(DetailView):
 
 class PostEdit(LoginRequiredMixin, AuthorRequiredMixin, UpdateView):
     model = Post
-    template_name = "blog/edit_post.html"
+    template_name = "blog/update_post.html"
     fields = '__all__'
     success_url = "/posts"
 
