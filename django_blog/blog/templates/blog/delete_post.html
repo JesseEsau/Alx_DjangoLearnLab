@@ -4,18 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
+    <title>Delete</title>
 </head>
 <body>
-    <h1>Profile</h1>
-    <form action="{% url 'logout' %}" method="POST">
-        {% csrf_token %}
-        <button type="Submit">Logout</button>
-    </form>
+    <p>Do you really want to delete this post?</p>
     <form action="" method="POST">
         {% csrf_token %}
-        {{form}}
-        <button type="Submit">Update</button>
-    </form>   
+        <button type="Submit">Confirm</button>
+    </form>
+    <a href="{% url 'posts' %}">Cancel</a>
 </body>
 </html>
