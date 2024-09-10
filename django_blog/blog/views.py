@@ -45,7 +45,7 @@ def ProfileView(request):
 
 class NewPost(CreateView):
     model = Post
-    template_name = "blog/create_post.html"
+    template_name = "blog/post_form.html"
     fields = '__all__'
     success_url = "/posts"
 
