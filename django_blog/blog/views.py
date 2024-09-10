@@ -57,7 +57,7 @@ class Posts(ListView):
 
 class PostDetail(DetailView):
     model = Post
-    template_name = "blog/post_detail.html"
+    template_name = "blog/posts_detail.html"
 
 
 class PostEdit(LoginRequiredMixin, AuthorRequiredMixin, UpdateView):
