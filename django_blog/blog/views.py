@@ -10,7 +10,7 @@ from .forms import CustomUserChangeForm
 from .models import Post
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .mixins import AuthorRequiredMixin
+from .mixins import UserPassesTestMixin
 
 from django.urls import reverse
 
@@ -60,7 +60,7 @@ class PostDetail(DetailView):
     template_name = "blog/posts_detail.html"
 
 
-class PostEdit(LoginRequiredMixin, AuthorRequiredMixin, UpdateView):
+class PostEdit(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     template_name = "blog/update_post.html"
     fields = '__all__'
@@ -70,7 +70,7 @@ class PostEdit(LoginRequiredMixin, AuthorRequiredMixin, UpdateView):
         return redirect('login')
 
 
-class PostDelete(LoginRequiredMixin, AuthorRequiredMixin, DeleteView):
+class PostDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
     template_name = "blog/delete_post.html"
     success_url = "/posts"
