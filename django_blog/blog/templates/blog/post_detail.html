@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Post</title>
 </head>
 <body>
     <h1>{{post.title}}</h1>
@@ -19,5 +19,33 @@
             <a href="{% url 'post_delete' post.id %}">Delete Post</a>
         </button>
     {% endif %}
+
+    <h2>Leave a Comment</h2>
+    <form action="{% url 'new_comment' post.id %}" method="POST">
+        {% csrf_token %}
+        {{form}}
+        <button type="Submit">Submit</button>
+    </form>
+
+    <h2>Comments:</h2>
+    {% for comment in comments %}
+        <div>
+            <hr>
+            <p>{{comment.author.first_name}}</p>
+            <p>{{comment.content}}</p>
+            <div>Created: {{comment.created_at}}</div>
+            <div>{{comment.updated_at}}</div>
+            {% if user == comment.author %}
+                <button>
+                    <a href="{% url 'edit_comment' post_id=post.id pk=comment.id %}">Edit</a>
+                </button>
+                <button>
+                    <a href="{% url 'delete_comment' post_id=post.id pk=comment.id %}">Delete</a>
+                </button>
+                
+            {% endif %}
+            <hr>
+        </div>
+    {% endfor %}
 </body>
 </html>
