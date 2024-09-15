@@ -138,10 +138,20 @@ def search_posts(search_query):
 
 
 def SearchListView(request):
-    query = request.GET.get('query', '')
+    query = request.GET.get('query', "")
     results = Post.objects.filter(
         Q(title__icontains=query) |
         Q(tags__name__icontains=query) |
         Q(content__icontains=query)
     ).distinct()
     return render(request, "blog/search_results.html", {'results': results})
+
+
+class PostByTagListView(ListView):
+    model = Post
+    template_name = "blog/posts_list.html"
+    context_object_name = 'post'
+
+    def get_queryset(self):
+        tag_slug = self.kwargs.get("slug")
+        return Post.objects.filter(tags__slug=tag_slug)
