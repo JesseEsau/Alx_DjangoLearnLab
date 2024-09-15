@@ -115,7 +115,7 @@ class CommentListView(ListView):
 #     template_name = "blog/comment_detail.html"
 
 
-class CommentEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Comment
     form_class = CommentForm
     template_name = "blog/update_comment.html"
