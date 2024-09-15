@@ -8,6 +8,11 @@
 </head>
 <body>
     <h1>{{post.title}}</h1>
+
+    
+    {% for tag in post.tags.all %}
+        Tags:<span> {{tag}} </span>
+    {% endfor %}
     <p>{{post.author}}</p>
     <p>{{post.content}}</p>
     <p>{{post.published_date}}</p>

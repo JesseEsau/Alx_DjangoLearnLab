@@ -8,12 +8,13 @@ from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import CustomUserCreationForm
-from .forms import CustomUserChangeForm, CommentForm
+from .forms import CustomUserChangeForm, CommentForm, PostForm
 from .models import Post
 from .models import Comment
 from .mixins import UserPassesTestMixin
 
 from django.urls import reverse, reverse_lazy
+from django.db.models import Q
 
 
 class Register(CreateView):
@@ -41,13 +42,10 @@ def ProfileView(request):
     return render(request, "blog/profile.html", {'form': form})
 
 
-# class Logout(LogoutView):
-#     template_name = 'blog/logout.html'
-
 class NewPost(CreateView):
     model = Post
+    form_class = PostForm
     template_name = "blog/post_form.html"
-    fields = '__all__'
     success_url = "/posts"
 
 
@@ -72,7 +70,7 @@ def PostDetail(request, pk):
 class PostEdit(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     template_name = "blog/update_post.html"
-    fields = '__all__'
+    form_class = PostForm
     success_url = "/posts"
 
     def handle_no_permission(self):
@@ -125,3 +123,25 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def get_success_url(self):
         return reverse('post_detail', kwargs={'pk': self.object.post_id})
+
+# search
+
+
+def search_posts(search_query):
+    results = Post.objects.filter(
+        Q(title__icontains=search_query) |
+        Q(tags__icontains=search_query) |
+        Q(content__icontains=search_query)
+    )
+
+    return results
+
+
+def SearchListView(request):
+    query = request.GET.get('query', '')
+    results = Post.objects.filter(
+        Q(title__icontains=query) |
+        Q(tags__icontains=query)
+        # Q(content__name__icontains=query)
+    ).distinct()
+    return render(request, "blog/search_results.html", {'results': results})

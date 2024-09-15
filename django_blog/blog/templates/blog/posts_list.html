@@ -7,6 +7,11 @@
     <title>Post List</title>
 </head>
 <body>
+    <form action="{% url 'search' %}" method="GET">
+        {% csrf_token %}
+        <input type="text">
+        <button type="Submit">Search</button>
+    </form>
     <h1>Post List</h1>
     {% for post in object_list %}
         <h2><a href="{% url 'post_detail' post.id %}">{{post.title | title}}</h2></a>
