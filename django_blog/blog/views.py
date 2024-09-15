@@ -90,8 +90,8 @@ class PostDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 # views for Comments
 @login_required
-def CommentCreateView(request, post_id):
-    post = get_object_or_404(Post, id=post_id)
+def CommentCreateView(request, pk):
+    post = get_object_or_404(Post, id=pk)
     if request.method == "POST":
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -99,20 +99,15 @@ def CommentCreateView(request, post_id):
             comment.author = request.user
             comment.post = post
             comment.save()
-            return redirect('post_detail', pk=post_id)
-    # else:
-    #     form = CommentForm()
+            return redirect('post_detail', pk)
+    else:
+        form = CommentForm()
     return render(request, "blog/comment_form.html", {"form": form, 'post': post})
 
 
 class CommentListView(ListView):
     model = Comment
     template_name = "blog/comments_list.html"
-
-
-# class CommentDetailView(DetailView):
-#     model = Comment
-#     template_name = "blog/comment_detail.html"
 
 
 class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
