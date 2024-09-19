@@ -29,7 +29,9 @@ class RegisterSerializer(serializers.ModelSerializer):
             password=validated_data['password']
         )
         # Generate the token for the user
-        token, created = Token.objects.get_or_create(user=user)
+
+        token, created = Token.objects.get_or_create(
+            user=user)  # or Token.objects.create
         user.token = token.key
         return user
 
