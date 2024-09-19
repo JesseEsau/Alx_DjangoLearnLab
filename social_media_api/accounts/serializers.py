@@ -14,7 +14,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class RegisterSerializer(serializers.ModelSerializer):
-    token = serializers.CharField(read_only=True)
+    token = serializers.CharField()
 
     class Meta:
         model = get_user_model()
@@ -28,7 +28,7 @@ class RegisterSerializer(serializers.ModelSerializer):
             password=validated_data['password']
         )
         # Generate the token for the user
-        token, created = Token.objects.get_or_create(user=user)
+        token, created = Token.objects.create(user=user)
         user.token = token.key
         return user
 
