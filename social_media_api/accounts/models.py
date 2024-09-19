@@ -1,0 +1,10 @@
+from django.db import models
+from django.contrib.auth.models import AbstractUser
+
+
+class CustomUser(AbstractUser):
+    bio = models.TextField(null=True, blank=True)  # Field to store user bio
+    profile_picture = models.ImageField(
+        upload_to='profile_pictures/', null=True, blank=True)
+    followers = models.ManyToManyField(
+        'self', symmetrical=False, blank=True)

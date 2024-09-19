@@ -1,0 +1,8 @@
+POST /register/
+{
+    "username": "newuser",
+    "email": "newuser@example.com",
+    "password": "securepassword",
+    "bio": "This is my bio",
+    "profile_picture": null  # Or a file if profile picture is provided
+}
