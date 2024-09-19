@@ -11,6 +11,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = get_user_model()
         fields = ['id', 'username', 'email',
                   'bio', 'profile_picture', 'followers']
+        read_only_fields = ['followers']
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -18,7 +19,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ['username', 'email', 'password']
+        fields = ['username', 'email', 'password', 'token']
         extra_kwargs = {'password': {'write_only': True}, }
 
     def create(self, validated_data):
@@ -28,15 +29,12 @@ class RegisterSerializer(serializers.ModelSerializer):
             password=validated_data['password']
         )
         # Generate the token for the user
-        token, created = Token.objects.create(user=user)
+        token, created = Token.objects.get_or_create(user=user)
         user.token = token.key
         return user
 
-    # def create(self, validated_data):
-    #     user = CustomUser(
-    #         username=validated_data['username'],
-    #         email=validated_data['email']
-    #     )
-    #     user.set_password(validated_data['password'])
-    #     user.save()
-    #     return user
+
+class ProfileUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = ['bio', 'profile_picture']  # allow update only on these two
